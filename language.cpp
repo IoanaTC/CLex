@@ -59,10 +59,6 @@ DFA* LANGUAGE::construct_dfa() {
 
         }
         else if (buff_line_size > REGEX_MAGIC_SIZE && !strncmp(REGEX_MAGIC, buff_line, REGEX_MAGIC_SIZE)) {
-            **(head->next + head->next_count) = construct_thompson(buff_line + REGEX_MAGIC_SIZE + 1);
-            if(head->next_count + 1 <= head->next_count || ++head->next_count >= head->maximum_count) {
-                return NULL;
-            }
         }
         else {
        
@@ -95,9 +91,9 @@ bool NODE::build_transition(char* value, unsigned int i, unsigned int size) {
         (*this->next + this->next_count)->next_count = 0;
 
         this->symbol_index[index] = this->next_count;
-        return (i >= size) ? 1 : (*this->next + this->next_count)->build_transition(value + 1, i + 1, size);
+        return (i > size) ? 1 : (*this->next + this->next_count)->build_transition(value + 1, i + 1, size);
     }
-    return (i >= size) ? 1 : this->next[this->symbol_index[index]]->build_transition(value + 1, i + 1, size);
+    return (i > size) ? 1 : this->next[this->symbol_index[index]]->build_transition(value + 1, i + 1, size);
 }
 NODE LANGUAGE::construct_thompson(char* regex) {
     return NODE();

@@ -33,68 +33,64 @@ void
 volatile
 while
 
+KEY Operators
++
+++
+-
+--
+*
+//
+%
+=
++=
+-=
+*=
+/=
+%=
+!
+~
+&&
+||
+&
+|
+^
+<<
+>>
+>
+<
+>=
+<=
+==
+!=
+?:
+->
+.
+*
+
+KEY Separators
+,
+;
+:
+(
+)
+{
+}
+[
+]
+.
+->
+#
+##
+
 KEY Identifier
 REGEX [a-zA-Z_][a-zA-Z0-9_]*
 
-KEY Operators
-plus_operator_regex: +
-increment_operator_regex: "++"
-minus_operator_regex: "-"
-decrement_operator_regex: "--"
-multiply_operator_regex: "*"
-divide_operator_regex: "/"
-modulus_operator_regex: "\\%"
-assignment_operator_regex: "="
-plus_assignment_operator_regex: "\\+="
-minus_assignment_operator_regex: "\\-="
-multiply_assignment_operator_regex: "\\*="
-divide_assignment_operator_regex: "\\/="
-modulus_assignment_operator_regex: "\\%="
-logical_not_operator_regex: "!"
-bitwise_not_operator_regex: "~"
-logical_and_operator_regex: "\\&\\&"
-logical_or_operator_regex: "\\|\\|"
-bitwise_and_operator_regex: "\\&"
-bitwise_or_operator_regex: "\\|"
-bitwise_xor_operator_regex: "\\^"
-bitwise_left_shift_operator_regex: "<<"
-bitwise_right_shift_operator_regex: ">>"
-greater_than_operator_regex: ">"
-less_than_operator_regex: "<"
-greater_than_or_equal_operator_regex: ">="
-less_than_or_equal_operator_regex: "<="
-equality_operator_regex: "=="
-inequality_operator_regex: "!="
-conditional_operator_regex: "\\?\\:"
-member_access_operator_regex: "->"
-member_access_operator_dot_regex: "\\."
-pointer_operator_regex: "\\*"
-
-KEY Separators
-14
-comma_separator_regex: ","
-semicolon_separator_regex: ";"
-colon_separator_regex: ":"
-open_parenthesis_separator_regex: "\\("
-close_parenthesis_separator_regex: "\\)"
-open_brace_separator_regex: "\\{"
-close_brace_separator_regex: "\\}"
-open_square_bracket_separator_regex: "\\["
-close_square_bracket_separator_regex: "\\]"
-dot_separator_regex: "\\."
-ellipsis_separator_regex: "\\.\\.\\."
-arrow_separator_regex: "->"
-hash_separator_regex: "#"
-double_hash_separator_regex: "##"
-
 KEY Literals
-4
 integer_literal_regex: "\\b\\d+\\b"
 floating_point_literal_regex: "\\b\\d+\\.\\d+\\b"
 character_literal_regex: "'[^']*'"
 string_literal_regex: "\"[^\"]*\""
 
 KEY Comments
-2
 single_line_comment_regex: "//.*"
 multi_line_comment_regex: "/\\*(.|\\n)*?\\*/"

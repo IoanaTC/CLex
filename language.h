@@ -12,7 +12,7 @@ using namespace std;
 #define REGEX_MAGIC "REGEX"
 #define REGEX_MAGIC_SIZE 5
 
-#define NUMBER_OF_SYMBOLS 90
+#define NUMBER_OF_SYMBOLS 95
 
 typedef class NODE {
     public:
@@ -37,7 +37,7 @@ typedef struct DFA {
 } DFA;
 
 
-static const char symbols[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&-=_+`~/,/<>?;':\"[]{}.";
+static const char symbols[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()!@#$%^&|*-=_+`~,/<>?;':\"[]{}.";
 
 class LANGUAGE {
     private:
