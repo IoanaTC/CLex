@@ -25,7 +25,6 @@ typedef class NODE {
 
         NODE** next;
         unsigned short next_count;
-        unsigned int maximum_count;
 
         bool build_transition(char* value, unsigned int i, unsigned int size);
         NODE() {

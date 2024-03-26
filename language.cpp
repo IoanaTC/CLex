@@ -50,18 +50,6 @@ DFA* LANGUAGE::construct_dfa() {
 
             strcpy(head->token.type, buff_line + TOKEN_MAGIC_SIZE + 1);
             head->token.type[type_size] = 0;
-
-            head->maximum_count = atoi(strtok(NULL, "\n"));
-            if(!head->maximum_count) {
-                return NULL;
-            }
-            /*
-            head->next = (NODE**) malloc(head->maximum_count * sizeof(NODE*));
-            if(!head->next) {
-                printf("[-] e de rau");
-                return NULL;
-            }
-            */
             head->next = NULL;
             head->next_count = 0;
 

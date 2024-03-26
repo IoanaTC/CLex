@@ -1,6 +1,5 @@
 6
 KEY Keyword
-32 
 auto
 break
 case
@@ -35,7 +34,6 @@ volatile
 while
 
 KEY Identifier
-1
 REGEX [a-zA-Z_][a-zA-Z0-9_]*
 
 KEY Operators
