@@ -18,7 +18,7 @@ char* ReadFileWrapper(char* filename) {
             OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, /* hTemplateFile = */ NULL);
     if(hFile == INVALID_HANDLE_VALUE) {
         // hot spot thread
-        cerr << "Failed to open file " << endl;
+        cout << "Failed to open file " << endl;
         return NULL;
     }
 
@@ -27,37 +27,37 @@ char* ReadFileWrapper(char* filename) {
     status = FALSE;
 
     if(fileSize == INVALID_FILE_SIZE) {
-        cerr << "Failed to get file size " << endl;
+        cout << "Failed to get file size " << endl;
 
         status = CloseHandle(hFile);
         if(!status) {
             DWORD errorCode = GetLastError();
-            cerr << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
+            cout << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
             return NULL;
         }
     }
 
     char* buffer = new char[fileSize + 1];
     if(!buffer) {
-        cerr << "Failed to allocate buffer for file " << endl;
+        cout << "Failed to allocate buffer for file " << endl;
 
         status = CloseHandle(hFile);
         if(!status) {
             DWORD errorCode = GetLastError();
-            cerr << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
+            cout << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
             return NULL;
         }
     }
 
     DWORD bytesRead = 0;
     if(!ReadFile(hFile, buffer, fileSize, &bytesRead, NULL) || bytesRead != fileSize) {
-        cerr << "Failed to read file " << filename << endl;
+        cout << "Failed to read file " << filename << endl;
         delete[] buffer;
 
         status = CloseHandle(hFile);
         if(!status) {
             DWORD errorCode = GetLastError();
-            cerr << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
+            cout << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
             return NULL;
         }
     }
@@ -71,13 +71,13 @@ void compute_file(ThreadParams p) {
 
     char* buffer = ReadFileWrapper(file);
     if(!buffer) {
-        cerr << "nasol";
+        cout << "nasol";
     }
     // create output file for current input
     char* output = new char[strlen(file) + 5]; // TODO: limit for name
     if(!output) {
 
-        cerr << "Failed to create output file name " << endl;
+        cout << "Failed to create output file name " << endl;
         delete[] buffer;
     }
     strcpy(output, file);
@@ -86,7 +86,7 @@ void compute_file(ThreadParams p) {
     HANDLE hOutputFile = CreateFile(output, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if(hOutputFile == INVALID_HANDLE_VALUE) {
 
-        cerr << "Failed to create output file name " << endl;
+        cout << "Failed to create output file name " << endl;
         delete[] buffer;
         delete[] output;
     }
@@ -95,8 +95,8 @@ void compute_file(ThreadParams p) {
 
     // compute lexical parsing
     LEXER lex(buffer, hOutputFile, p.dfa);
-    if(!lex.compute_flow()) {
-        cerr << "Failed to compute lexer flow for " << file << endl;
+    if(!lex.compute_flow(hOutputFile)) {
+        cout << "Failed to compute lexer flow for " << file << endl;
     } 
     // delete used objects and free allocated memory
     delete[] buffer;
@@ -105,7 +105,7 @@ void compute_file(ThreadParams p) {
     status = CloseHandle(hOutputFile);
     if(!status) {
         DWORD errorCode = GetLastError();
-        cerr << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
+        cout << "Failed to close handle for thread " << ", Error code: " << errorCode << endl;
     }
     return;
 }
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
         // TODO: add checks for the spec file to be correct
         char* spec_buffer = ReadFileWrapper(argv[1]);
         if(!spec_buffer) {
-            cerr << "nasol spec";
+            cout << "nasol spec";
             return EXIT_FAILURE;
         }
         
@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
         LANGUAGE description(spec_buffer, sizeof(spec_buffer));
         DFA* dfa = description.construct_dfa();
         if(!dfa) {
-            cerr << "nasol status";
+            cout << "nasol status";
             return EXIT_FAILURE;
         }
         return 0;
@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
                     (LPTHREAD_START_ROUTINE)compute_file, p, 
                     /* dwCreationFlags = */ 0, /* lpThreadId = */ NULL);
             if(threads[i-2] == NULL) {
-                cerr << "Failed to create thread for file " << argv[i] << endl;
+                cout << "Failed to create thread for file " << argv[i] << endl;
                 return EXIT_FAILURE;
             }
         }
@@ -156,7 +156,7 @@ int main(int argc, char** argv) {
             bool status = CloseHandle(threads[i]);
             if(!status) {
                 DWORD errorCode = GetLastError();
-                cerr << "Failed to close handle for thread " << i << ", Error code: " << errorCode << endl;
+                cout << "Failed to close handle for thread " << i << ", Error code: " << errorCode << endl;
             }
         }
     }

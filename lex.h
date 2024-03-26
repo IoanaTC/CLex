@@ -3,20 +3,20 @@
 #include<iostream>
 #include<windows.h>
 #include "language.h"
+#include <cctype>
 
 using namespace std;
 
 class LEXER {
     private:
         char* buffer;
+        unsigned int buffer_size;
         HANDLE hOutputFile;
         DFA* dfa;
 
     public:
-        LEXER(char* buffer, HANDLE hOuputFile, DFA* dfa): buffer(NULL), hOutputFile(0) {}
+        LEXER(char* buffer, HANDLE hOuputFile, DFA* dfa){ this->buffer = buffer; this->dfa = dfa; }
         
-        //char* getBuffer();
-        //HANDLE gethOutputFile();
-
-        bool compute_flow();
+        bool compute_flow(HANDLE hOutputFile);
+        bool run_types(NODE* head, char* type, unsigned int& index);
 };

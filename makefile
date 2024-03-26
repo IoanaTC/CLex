@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++11 -pthread -c -Wall -Werror
+CFLAGS = -m64 -g -std=c++11 -pthread -c -Wall -Werror
 LDFLAGS = 
 OBJ = main.o lex.o language.o
 

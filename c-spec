@@ -83,14 +83,9 @@ KEY Separators
 ##
 
 KEY Identifier
-REGEX [a-zA-Z_][a-zA-Z0-9_]*
+REGEX variable: /-az/-AZ/+/-az/-AZ/+/-09/+/*/?
 
 KEY Literals
-integer_literal_regex: "\\b\\d+\\b"
-floating_point_literal_regex: "\\b\\d+\\.\\d+\\b"
-character_literal_regex: "'[^']*'"
-string_literal_regex: "\"[^\"]*\""
+REGEX integer_literal_regex: +-/0/+0/-19/-09/*/?/+/?
+REGEX floating_point_literal_regex: +-/0/+0/-19/-09/*/?/+/?./-09/?/?
 
-KEY Comments
-single_line_comment_regex: "//.*"
-multi_line_comment_regex: "/\\*(.|\\n)*?\\*/"

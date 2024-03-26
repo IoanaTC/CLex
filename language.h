@@ -3,6 +3,7 @@
 #include<iostream>
 #include<windows.h>
 #include<algorithm>
+#include<stack>
 
 using namespace std;
 
@@ -12,21 +13,23 @@ using namespace std;
 #define REGEX_MAGIC "REGEX"
 #define REGEX_MAGIC_SIZE 5
 
-#define NUMBER_OF_SYMBOLS 95
+#define NUMBER_OF_SYMBOLS 93
 
 typedef class NODE {
     public:
         union {
-            char symbol;
-            char* name;
+            char* symbol;
             char* type;
         } token;
         int symbol_index[NUMBER_OF_SYMBOLS] = { -1 };
 
-        NODE** next;
-        unsigned short next_count;
+        NODE** next = NULL;
+        unsigned short next_count = 0;
+
+        bool is_final_state = FALSE;
 
         bool build_transition(char* value, unsigned int i, unsigned int size);
+        bool build_thompson(char* regex, unsigned int i, unsigned int size, char* type);
         NODE() {
             for(unsigned int i = 0; i < NUMBER_OF_SYMBOLS; i++) symbol_index[i] = -1;
         }
