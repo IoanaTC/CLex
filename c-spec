@@ -1,4 +1,6 @@
-KEY keyword
+6
+KEY Keyword
+32 
 auto
 break
 case
@@ -32,15 +34,16 @@ void
 volatile
 while
 
-KEY identifier
+KEY Identifier
+1
 REGEX [a-zA-Z_][a-zA-Z0-9_]*
 
-// Operators
-plus_operator_regex: "\\+"
-increment_operator_regex: "\\+\\+"
-minus_operator_regex: "\\-"
-decrement_operator_regex: "\\-\\-"
-multiply_operator_regex: "\\*"
+KEY Operators
+plus_operator_regex: +
+increment_operator_regex: "++"
+minus_operator_regex: "-"
+decrement_operator_regex: "--"
+multiply_operator_regex: "*"
 divide_operator_regex: "/"
 modulus_operator_regex: "\\%"
 assignment_operator_regex: "="
@@ -69,7 +72,8 @@ member_access_operator_regex: "->"
 member_access_operator_dot_regex: "\\."
 pointer_operator_regex: "\\*"
 
-// Separators
+KEY Separators
+14
 comma_separator_regex: ","
 semicolon_separator_regex: ";"
 colon_separator_regex: ":"
@@ -85,12 +89,14 @@ arrow_separator_regex: "->"
 hash_separator_regex: "#"
 double_hash_separator_regex: "##"
 
-// Literals
+KEY Literals
+4
 integer_literal_regex: "\\b\\d+\\b"
 floating_point_literal_regex: "\\b\\d+\\.\\d+\\b"
 character_literal_regex: "'[^']*'"
 string_literal_regex: "\"[^\"]*\""
 
-// Comments
+KEY Comments
+2
 single_line_comment_regex: "//.*"
 multi_line_comment_regex: "/\\*(.|\\n)*?\\*/"

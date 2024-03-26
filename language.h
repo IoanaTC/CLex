@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<windows.h>
+#include<algorithm>
 
 using namespace std;
 
@@ -10,25 +11,34 @@ using namespace std;
 
 #define REGEX_MAGIC "REGEX"
 #define REGEX_MAGIC_SIZE 5
-            
-typedef struct NODE {
-    
-    char* regex;
-    
-    char* token;
-    char* id;
 
-    NODE** transitions;
-    unsigned int transitions_count;
+#define NUMBER_OF_SYMBOLS 90
 
-    bool is_final;
+typedef class NODE {
+    public:
+        union {
+            char symbol;
+            char* name;
+            char* type;
+        } token;
+        int symbol_index[NUMBER_OF_SYMBOLS] = { -1 };
+
+        NODE** next;
+        unsigned short next_count;
+        unsigned int maximum_count;
+
+        bool build_transition(char* value, unsigned int i, unsigned int size);
+        NODE() {
+            for(unsigned int i = 0; i < NUMBER_OF_SYMBOLS; i++) symbol_index[i] = -1;
+        }
 } NODE;
 
 typedef struct DFA {
-    NODE start;
-    NODE* finalStates;
+    NODE head;
 } DFA;
 
+
+static const char symbols[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&-=_+`~/,/<>?;':\"[]{}.";
 
 class LANGUAGE {
     private:
@@ -39,6 +49,7 @@ class LANGUAGE {
         LANGUAGE(char* buffer = NULL, unsigned int size = 0) { spec_buffer = buffer; spec_size = size; }
 
         DFA* construct_dfa();
-        NODE* construct_token(char* token, char* identifier);
+        NODE construct_thompson(char* regex);
+        NODE construct_dfa(char* value);
 };
 
